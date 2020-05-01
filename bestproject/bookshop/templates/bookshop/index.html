@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			My books
+
+		</title>
+
+	<meta charset="utf-8">	
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+
+	</head>
+	<body>
+		<div class="jumbotron">
+		<h1> Мы вам можем предложить следующее увлекательнейшее чтиво </h1> 
+		</div>
+		<div class='container' pt-3 my-3 border >
+
+			<div class="row">
+	
+			<hr>
+			{% for book in all_books %}
+				<div class="col">
+					<h2> {{book.name}} </h2>
+					<ul class="list-group">
+					<dl>
+				<li class="list-group-item"><dt> Информация о книге </dt></li>
+				<li class="list-group-item"><dd> The id of the book is {{book.id}} </dd></li>
+			
+				<li class="list-group-item"><dd> {{book.date}} </dd></li>
+					<li class="list-group-item"> <dd class="bg-info text-white"> The author is {{book.book_author.name}} </dd></li>
+				<li class="list-group-item"> <dd> The genre is {{book.book_genre.name}} </dd>
+					<li class="list-group-item"> <dd class="bg-secondary text-white"> The price is  {{book.price}} </dd></li>
+				</dl>
+
+				<dl>
+					</ul>
+					<dt> Комментарии к книге: </dt>
+				
+				{% for com in book.Comment.all %}
+					<dd class="bg-light text-dark"> -  {{com.text}}  </dd>
+				{% endfor%}
+
+				</dl>
+
+	
+
+			<form action="{% url 'comment_url' id_book=book.id %}" method="post">
+				{% csrf_token %}
+				{{ comment}}
+				<button type='submit' class="btn btn-info">Done</button>
+
+			
+			</form>
+		       		</div>	
+			{% endfor %}
+				
+			</div>
+		</div> 
+	</body>
+<html>
+
